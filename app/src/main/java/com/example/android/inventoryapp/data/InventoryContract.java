@@ -14,11 +14,11 @@ public class InventoryContract {
         public static final String TABLE_NAME = "books";
 
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_BOOK_NAME = "product name";
+        public static final String COLUMN_BOOK_NAME = "product_name";
         public static final String COLUMN_BOOK_PRICE = "price";
         public static final String COLUMN_BOOK_QUANTITY = "quantity";
-        public static final String COLUMN_BOOK_SUPPLIER_NAME = "supplier name";
-        public static final String COLUMN_BOOK_SUPPLIER_PHONE = "supplier phone number";
+        public static final String COLUMN_BOOK_SUPPLIER_NAME = "supplier_name";
+        public static final String COLUMN_BOOK_SUPPLIER_PHONE = "supplier_phone_number";
 
         /**
          * Possible values for the quantity 0- Out of Stock, 1: <5, 2: >=5

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">InventoryApp</string>
+
+    <!-- Label for dropdown menu option if book is out of stock[CHAR LIMIT=20] -->
+    <string name="out_of_stock">Out of stock</string>
+
+    <!-- Label for dropdown menu option if quantity is less than 5[CHAR LIMIT=20] -->
+    <string name="less_than">Less than 5</string>
+
+    <!-- Label for dropdown menu option if quantity is more than five[CHAR LIMIT=20] -->
+    <string name="more_than">More than 5</string>
 </resources>

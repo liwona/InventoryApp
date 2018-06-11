@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Primary color for the editor -->
+    <color name="editorColorPrimary">#2DEEEE</color>
+
+    <!-- Primary dark color for the editor -->
+    <color name="editorColorPrimaryDark">#390066</color>
 </resources>

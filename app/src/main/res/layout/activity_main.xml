@@ -1,18 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.android.inventoryapp.MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_text_book_name"
+            android:hint="Name"
+            android:inputType="textCapWords"
+            style="@style/EditTextStyle" />
+
+        <!-- Price field -->
+        <EditText
+            android:id="@+id/edit_text_price"
+            android:hint="Price"
+            android:inputType="number"
+            style="@style/EditTextStyle"/>
+    </LinearLayout>
+
+    <!-- Quantity category -->
+    <LinearLayout
+        android:id="@+id/quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+
+            android:hint="Quantity"
+            style="@style/MySpinnerStyle" />
+
+        <!-- Input field -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <!-- Gender drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_quantity"
+                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:paddingRight="16dp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_text_supplier_name"
+            android:hint="Supplier Name"
+            android:inputType="textCapWords"
+            style="@style/EditTextStyle" />
+
+        <EditText
+            android:id="@+id/edit_text_supplier_phone_number"
+            android:hint="Supplier Phone Number"
+            android:inputType="number"
+            style="@style/EditTextStyle"/>
+    </LinearLayout>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/action_save"
+        android:title="Save"
+        android:text="Save"
+        android:layout_gravity="center_horizontal"/>
 
-</android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/books_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
