@@ -1,5 +1,6 @@
 package com.example.android.inventoryapp;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +9,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.InventoryContract;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mSupplierPhone = (EditText) findViewById(R.id.edit_text_supplier_phone_number);
 
         setupSpinner();
+        saveButtonClick();
 
         mDbHelper = new InvetoryDbHelper(this);
         cursor = queryData();
@@ -105,6 +109,42 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertData(){
         // Insert into database.
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String nameString = mNameEditText.getText().toString().trim();
+        String priceString = mPriceEditText.getText().toString().trim();
+        int price = Integer.parseInt(priceString);
+        String supplierString = mSupplierName.getText().toString().trim();
+        String supplierPhoneString = mSupplierPhone.getText().toString().trim();
+        int supplierPhone = Integer.parseInt(supplierPhoneString);
+
+        InvetoryDbHelper mDbHelper = new InvetoryDbHelper(this);
+        // Gets the data repository in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and Toto's pet attributes are the values.
+        ContentValues values = new ContentValues();
+        values.put(InventoryEntry.COLUMN_BOOK_NAME, nameString);
+        values.put(InventoryEntry.COLUMN_BOOK_PRICE, price);
+        values.put(InventoryEntry.COLUMN_BOOK_QUANTITY, mQuantity);
+        values.put(InventoryEntry.COLUMN_BOOK_SUPPLIER_NAME, supplierString);
+        values.put(InventoryEntry.COLUMN_BOOK_SUPPLIER_PHONE, supplierPhone);
+
+        // Insert a new row for Toto in the database, returning the ID of that new row.
+        // The first argument for db.insert() is the pets table name.
+        // The second argument provides the name of a column in which the framework
+        // can insert NULL in the event that the ContentValues is empty (if
+        // this is set to "null", then the framework will not insert a row when
+        // there are no values).
+        // The third argument is the ContentValues object containing the info for Toto.
+        long newRowId = db.insert(InventoryEntry.TABLE_NAME, null, values);
+
+        if (newRowId == -1){
+            Toast.makeText(this, "Error with saving the book", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Book saved with row id: " + newRowId, Toast.LENGTH_LONG).show();
+        }
     }
 
     private Cursor queryData(){
@@ -129,11 +169,11 @@ public class MainActivity extends AppCompatActivity {
                 InventoryContract.InventoryEntry.COLUMN_BOOK_SUPPLIER_PHONE
         };
 
-        String selection = InventoryEntry.COLUMN_BOOK_QUANTITY + "=?";
+//        String selection = InventoryEntry.COLUMN_BOOK_QUANTITY + "=?";
+//
+//        String[] selectionArgs = new String []{"0"};
 
-        String[] selectionArgs = new String []{"0"};
-
-        cursor = db.query(InventoryContract.InventoryEntry.TABLE_NAME, projection, selection, selectionArgs,
+        cursor = db.query(InventoryContract.InventoryEntry.TABLE_NAME, projection, null, null,
                 null, null, null);
 
         return cursor;
@@ -188,7 +228,19 @@ public class MainActivity extends AppCompatActivity {
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
-//            cursor.close();
+            cursor.close();
         }
+    }
+
+
+    private void saveButtonClick(){
+        Button button = (Button) findViewById(R.id.action_save);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                insertData();
+                cursor = queryData();
+                displayDatabaseInfo(cursor);
+            }
+        });
     }
 }
