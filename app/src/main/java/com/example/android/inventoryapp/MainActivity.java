@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -169,12 +170,10 @@ public class MainActivity extends AppCompatActivity {
                 InventoryContract.InventoryEntry.COLUMN_BOOK_SUPPLIER_PHONE
         };
 
-//        String selection = InventoryEntry.COLUMN_BOOK_QUANTITY + "=?";
-//
-//        String[] selectionArgs = new String []{"0"};
-
         cursor = db.query(InventoryContract.InventoryEntry.TABLE_NAME, projection, null, null,
                 null, null, null);
+
+        Log.v("Query message:", cursor.toString());
 
         return cursor;
     }
